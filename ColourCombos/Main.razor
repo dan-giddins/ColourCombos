@@ -1,0 +1,41 @@
+﻿<div class="cbox" style=@hairStyle></div>
+<div class="cbox" style=@bodyStyle></div>
+<div class="row">
+	<div class="cback" style=@bodyStyle></div>
+	<div class="ceye eyewhite"></div>
+	<div class="ceye" style=@eyesStyle></div>
+	<div class="ceye eyeblack"></div>
+</div>
+<div class="cbox body" style=@bodyStyle></div>
+<button id="generate" @onclick="Regen">regen</button>
+
+@code {
+	string hairStyle;
+	string bodyStyle;
+	string eyesStyle;
+
+	private void Regen()
+	{
+		hairStyle = $"background-color: {GenHairColour()};";
+		bodyStyle = $"background-color: {GenBodyColour()};";
+		eyesStyle = $"background-color: {GenEyeColour()};";
+	}
+
+	private string GenHairColour()
+	{
+		Random rnd = new Random();
+		return Color.FromHsv((float)rnd.NextDouble(), (float)rnd.NextDouble(), (float)rnd.NextDouble()).ToHex();
+	}
+
+	private string GenBodyColour()
+	{
+		Random rnd = new Random();
+		return Color.FromHsv((float)rnd.NextDouble(), (float)rnd.NextDouble(), (float)rnd.NextDouble()).ToHex();
+	}
+
+	private string GenEyeColour()
+	{
+		Random rnd = new Random();
+		return Color.FromHsv((float)rnd.NextDouble(), (float)rnd.NextDouble(), (float)rnd.NextDouble()).ToHex();
+	}
+}
