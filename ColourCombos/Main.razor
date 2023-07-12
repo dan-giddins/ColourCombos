@@ -1,44 +1,85 @@
-﻿<div class="cbox" style=@hairStyle></div>
-<div class="cbox" style=@bodyStyle></div>
-<div class="row">
-	<div class="cback" style=@bodyStyle></div>
-	<div class="ceye eyewhite"></div>
-	<div class="ceye" style=@eyesStyle></div>
-	<div class="ceye eyeblack"></div>
+﻿<div class="row">
+	<div class="cbox" style=@HairStyle></div>
+	<input type="range" min="0" max="100" @bind="@HairSatMin" @bind:event="oninput">
+	<input type="range" min="0" max="100" @bind="@HairSatMax" @bind:event="oninput">
+	<input type="range" min="0" max="100" @bind="@HairValMin" @bind:event="oninput">
+	<input type="range" min="0" max="100" @bind="@HairValMax" @bind:event="oninput">
 </div>
-<div class="cbox body" style=@bodyStyle></div>
-<button id="generate" @onclick="Regen">regen</button>
+<div class="row">
+	<div class="cbox" style=@BodyStyle></div>
+	<input type="range" min="0" max="100" @bind="@BodySatMin" @bind:event="oninput">
+	<input type="range" min="0" max="100" @bind="@BodySatMax" @bind:event="oninput">
+	<input type="range" min="0" max="100" @bind="@BodyValMin" @bind:event="oninput">
+	<input type="range" min="0" max="100" @bind="@BodyValMax" @bind:event="oninput">
+</div>
+<div class="row">
+	<div class="cback" style=@BodyStyle></div>
+	<div class="ceye eyewhite"></div>
+	<div class="ceye" style=@EyesStyle></div>
+	<div class="ceye eyeblack"></div>
+	<input type="range" min="0" max="100" @bind="@EyeSatMin" @bind:event="oninput">
+	<input type="range" min="0" max="100" @bind="@EyeSatMax" @bind:event="oninput">
+	<input type="range" min="0" max="100" @bind="@EyeValMin" @bind:event="oninput">
+	<input type="range" min="0" max="100" @bind="@EyeValMax" @bind:event="oninput">
+</div>
+<div class="row">
+	<div class="cbox body" style=@BodyStyle></div>
+	<button id="generate" @onclick="Regen">regen</button>
+</div>
+
 
 @code {
-	string hairStyle;
-	string bodyStyle;
-	string eyesStyle;
+	string HairStyle;
+	int HairSatMin = 0;
+	int HairSatMax = 100;
+	int HairValMin = 0;
+	int HairValMax = 100;
+	string BodyStyle;
+	int BodySatMin = 0;
+	int BodySatMax = 0;
+	int BodyValMin = 100;
+	int BodyValMax = 100;
+	string EyesStyle;
+	int EyeSatMin = 0 ;
+	int EyeSatMax = 100;
+	int EyeValMin = 50;
+	int EyeValMax = 100;
+
+	protected override void OnInitialized()
+	{
+		Regen();
+	}
 
 	private void Regen()
 	{
-		hairStyle = $"background-color: {GenHairColour()};";
-		bodyStyle = $"background-color: {GenBodyColour()};";
-		eyesStyle = $"background-color: {GenEyeColour()};";
+		HairStyle = $"background-color: {GenHairColour()};";
+		BodyStyle = $"background-color: {GenBodyColour()};";
+		EyesStyle = $"background-color: {GenEyeColour()};";
 	}
 
 	private string GenHairColour()
 	{
 		Random rnd = new Random();
 		//return Color.FromHsv((float)rnd.NextDouble(), (float)rnd.NextDouble(), (float)rnd.NextDouble()).ToHex();
-		return Color.FromHsv((float)rnd.NextDouble(), (float)rnd.NextDouble(), (float)rnd.NextDouble()).ToHex();
+		return Color.FromHsv(Rand(0, 100), Rand(HairSatMin, HairSatMax), Rand(HairValMin, HairValMax)).ToHex();
 	}
 
 	private string GenBodyColour()
 	{
 		Random rnd = new Random();
 		//return Color.FromHsv((float)rnd.NextDouble(), (float)(((rnd.NextDouble() * 0.1))), (float)((0.9 + (rnd.NextDouble() * 0.9)))).ToHex();
-		return Color.FromHsv((float)rnd.NextDouble(), 0f, 1f).ToHex();
+		return Color.FromHsv(Rand(0, 100), Rand(BodySatMin, BodySatMax), Rand(BodyValMin, BodyValMax)).ToHex();
 	}
 
 	private string GenEyeColour()
 	{
 		Random rnd = new Random();
 		//return Color.FromHsv((float)rnd.NextDouble(), (float)rnd.NextDouble(), (float)((0.9 + (rnd.NextDouble() * 0.9)))).ToHex();
-		return Color.FromHsv((float)rnd.NextDouble(), (float)rnd.NextDouble(), 1f).ToHex();
+		return Color.FromHsv(Rand(0, 100), Rand(EyeSatMin, EyeSatMax), Rand(EyeValMin, EyeValMax)).ToHex();
+	}
+
+	private float Rand(int min, int max)
+	{
+		return new Random().Next(min, max) / 100f;
 	}
 }
