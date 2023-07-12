@@ -33,6 +33,6 @@ body{
 }
 
 .eyeblack {
-	#background-color: black;
-	background-color: white;
+	background-color: black;
+	#background-color: white;
 }
