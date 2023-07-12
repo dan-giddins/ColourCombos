@@ -59,22 +59,16 @@
 
 	private string GenHairColour()
 	{
-		Random rnd = new Random();
-		//return Color.FromHsv((float)rnd.NextDouble(), (float)rnd.NextDouble(), (float)rnd.NextDouble()).ToHex();
 		return Color.FromHsv(Rand(0, 100), Rand(HairSatMin, HairSatMax), Rand(HairValMin, HairValMax)).ToHex();
 	}
 
 	private string GenBodyColour()
 	{
-		Random rnd = new Random();
-		//return Color.FromHsv((float)rnd.NextDouble(), (float)(((rnd.NextDouble() * 0.1))), (float)((0.9 + (rnd.NextDouble() * 0.9)))).ToHex();
 		return Color.FromHsv(Rand(0, 100), Rand(BodySatMin, BodySatMax), Rand(BodyValMin, BodyValMax)).ToHex();
 	}
 
 	private string GenEyeColour()
 	{
-		Random rnd = new Random();
-		//return Color.FromHsv((float)rnd.NextDouble(), (float)rnd.NextDouble(), (float)((0.9 + (rnd.NextDouble() * 0.9)))).ToHex();
 		return Color.FromHsv(Rand(0, 100), Rand(EyeSatMin, EyeSatMax), Rand(EyeValMin, EyeValMax)).ToHex();
 	}
 
